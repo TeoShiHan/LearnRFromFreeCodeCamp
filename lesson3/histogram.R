@@ -1,33 +1,89 @@
 print("Load the datasets package")
 library(datasets)
 
-print("getting the documentes of mtcars dataset with ?")
-?mtcars
+print("fetch and lean about the iris dataset")
+?iris
 
-print("Get some view on the mtcars data")
-head(mtcars)
-
-print("Use bar chart to visualize the cyl variable")
-barplot(mtcars$cyl)
-
-print("Assigning the data into another variable")
-print("Create frequency table that count each value's occurance")
-cylinder <- table(mtcars$cyl)
-print(cylinder)
-barplot(cylinder)
+head(iris)
 
 
-# CLEAN UP #################################################
-print("Clear the environment")
-rm(list = ls()) 
+print("use histogram to visualize the sepal lenth")
+hist(iris$Sepal.Length)
 
-print("detach the package")
-detach("package:datasets", unload = TRUE)  # For base
+print("use histogram to visualize the sepal width")
+hist(iris$Sepal.Width)
 
-print("Clear the plotted graph")
-dev.off()  # But only if there IS a plot
+print("use histogram to visualize the petal length")
+hist(iris$Petal.Length)
 
-print("Use control l to remove the console")
-cat("\014")  # ctrl+L
 
-# Clear mind :)
+print("use histogram to visualize the petal width")
+hist(iris$Petal.Width)
+
+
+print("for each species ... get the petal width histogram")
+
+print("List all the species")
+print(unique(iris$Species))
+
+
+print("Get histogram for setosa species")
+
+only_setosa_species = iris$Species == "setosa"
+petal_width_col = iris$Petal.Width
+
+
+print("Create partition so that can have multiple chart")
+# Set up a layout with two rows and one column
+par(mfrow = c(3, 1))
+
+hist(
+  petal_width_col [only_setosa_species],
+  xlim = c(0,3),
+  breaks=9,
+  main="Petal Width for Setosa",
+  xlab="",
+  col="red"
+  )
+
+only_versicolor_species = iris$Species == "versicolor"
+
+hist(
+  petal_width_col [only_versicolor_species],
+  xlim = c(0,3),
+  breaks=9,
+  main="Petal Width for Setosa",
+  xlab="",
+  col="red"
+)
+
+only_virginica_species = iris$Species == "virginica"
+
+hist(
+  petal_width_col [only_virginica_species],
+  xlim = c(0,3),
+  breaks=9,
+  main="Petal Width for Setosa",
+  xlab="",
+  col="red"
+)
+
+
+#################################
+print("clear the packages")
+detatch(datasets)
+
+print("clear the environtment")
+env_items <- ls()
+rm(list=env_items)
+
+
+
+
+
+
+
+
+
+
+

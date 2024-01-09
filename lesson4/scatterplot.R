@@ -42,3 +42,11 @@ plot(
   ylab = ylabel
   )
 
+
+dev.off()
+env_items <- ls()
+rm(list=env_items)
+detach("package:datasets", unload= TRUE)
+
+
+
