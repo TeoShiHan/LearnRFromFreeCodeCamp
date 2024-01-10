@@ -27,4 +27,11 @@ curve(
   add = TRUE
 )
 
+# add kernel density estimator
+lines(density(lynx), col= "blue", lwd= 2)
+lines(density(lynx, adjust = 3), col= "purple", lwd= 2)
+
+rug(lynx, lwd=2, col = "gray")
+
 dev.off()
+

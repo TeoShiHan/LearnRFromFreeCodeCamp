@@ -1,0 +1,123 @@
+import the dataset
+
+```{r}
+library(datasets)
+```
+
+explore the dataset
+
+```{r}
+head(iris)
+```
+
+histogram to visualize the petal length
+
+```{r}
+petalLength <- iris$Petal.Length
+hist(petalLength)
+```
+
+get some summary statistics on petal length
+
+```{r}
+summary(petalLength)
+```
+
+Compare the three iris petal length
+
+```{r}
+library(gridExtra)
+library(ggplot2)
+
+setosa_data <- subset(iris, Species == "setosa")
+versicolor_data <- subset(iris, Species == "versicolor")
+virginica_data <- subset(iris, Species == "virginica")
+
+
+histogramFormatting <- geom_histogram(binwidth = 0.2, fill = "blue", color = "black")
+
+
+getFormattedHist <- function(data,column,histogram,title,xlabel,ylabel){
+  plot <- ggplot(
+    data = data,
+    aes(x = {{ column }})
+  ) +
+  histogram +
+  ggtitle(title) +
+  xlab(xlabel) +
+  ylab(ylabel)
+  return(plot)
+}
+
+grid.arrange(
+  
+  getFormattedHist(
+    setosa_data, 
+    Petal.Length, 
+    histogramFormatting, 
+    "setosa petal", 
+    "petal length", 
+    "frequency"),
+  
+  getFormattedHist(
+    versicolor_data, 
+    Petal.Length, 
+    histogramFormatting, 
+    "setosa petal", 
+    "petal length", 
+    "frequency"),
+  
+  getFormattedHist(
+    virginica_data, 
+    Petal.Length, 
+    histogramFormatting, 
+    "verginica petal", 
+    "petal length", 
+    "frequency")
+)
+
+```
+
+plot histogram where the petal length is less than two
+
+```{r}
+irisPetalLessThan2 = subset(iris, iris$Petal.Length < 2)
+
+
+# Create a histogram using the custom function (getFormattedHist)
+getFormattedHist(
+  data = irisPetalLessThan2,
+  column = Petal.Length,
+  histogram = histogramFormatting,  # Assuming you have a function for histogram formatting
+  title = "Petal length less than two",
+  xlabel = "Petal length",
+  ylabel = "Frequency"
+)
+```
+
+get only virginica that petal less than 5.5
+
+```{r}
+
+
+condition <- 
+  iris$Species == "virginica" & 
+  iris$Petal.Length < 5.5
+  
+virginicaLessThan5 = subset(iris, condition)
+
+histogramFormatting2 <- 
+  geom_histogram(
+    bins = 5,
+    fill = "blue", 
+    color = "black")
+
+getFormattedHist(
+  data = virginicaLessThan5,
+  column = Petal.Length,
+  histogram = histogramFormatting2,
+  title = "Petal length less than 5.5 virginica",
+  xlabel = "Petal length",
+  ylabel = "Frequency"
+)
+```
